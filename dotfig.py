@@ -1,11 +1,8 @@
 from pathlib import Path
 
-# current_dir = Path.cwd()
 dotfiles_path =
+# current_dir = Path.cwd()
 home_dir = Path.home()
-#ubuntu_dir = current_dir.parent
-#symlinks_dir = ubuntu_dir / "symlinks"
-
 
 dots_all = dotfiles_path.rglob('*')
 dots_list = [x for x in dots_all]
@@ -18,14 +15,12 @@ def sync_dotfiles():
 		dir_in = Path(y)
 		dir_name = dir_in.relative_to(dotfiles_path)
 		dir_out = home_dir / dir_name
-		print(dir_in, dir_name, dir_out)
 		check_dir(dir_out)
 
 	for x in dots_files:
 		dot_in = Path(x)
 		dot_name = dot_in.relative_to(dotfiles_path)
 		dot_out = home_dir / dot_name
-		print(dot_in, dot_name, dot_out)
 		check_file(dot_out)
 		make_links(dot_in, dot_out)
 
@@ -37,12 +32,10 @@ def make_links(dotin, dotout):
 def check_file(thefile):
 	if thefile.is_symlink():
 		thefile.unlink()
-	else:
-		pass
+	else: pass
 	if thefile.is_file():
 		rename_old(thefile)
-	else:
-		pass
+	else: pass
 
 
 def check_dir(thedir):
