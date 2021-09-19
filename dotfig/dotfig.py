@@ -1,7 +1,10 @@
-from pathlib import Path
-import sys
+# from pathlib import Path
+# import sys
 
 def run():
+
+	from pathlib import Path
+	import sys
 
 	try:
 		user_input = sys.argv[1]
@@ -71,5 +74,5 @@ def run():
 	else:
 		print("invalid Directory")
 
-run()
+# run()
 
