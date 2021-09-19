@@ -17,6 +17,11 @@ With git
 pip install git+https://github.com/DevAtDawn/dotfig.git
 pip install git+ssh://git@github.com:DevAtDawn/dotfig.git
 
+problem on Linux is that pip install ... drops scripts into ~/.local/bin and this is not on the default Debian/Ubuntu $PATH
+add ~/.local/bin to your $PATH, for example by adding the following line to your .bashrc file:
+export PATH="$HOME/.local/bin:$PATH"
+
+
 Without git
 pip install
 
