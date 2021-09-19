@@ -1,6 +1,10 @@
 # dotfig
 Easily sync, store, edit and backup your dotfiles and configs 
 
+to use just type dotfig at the cli + the name of the directory containing your dotfiles
+ex: dotfig dotfiles
+it will then create sym links to the home folder and all parents dirs, it will not overwrite existing configs / it will rename them to file_old
+
 install options:
 
 1:
