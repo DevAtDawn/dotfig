@@ -1,9 +1,19 @@
 from pathlib import Path
+import sys
 
-dotfiles_path =
-# current_dir = Path.cwd()
 home_dir = Path.home()
+current_dir = Path.cwd()
 
+try:
+    user_input = sys.argv[1]
+    directory_name = Path(user_input)
+    dotfiles_path = directory_name.resolve()
+except:
+    print('Please pass a directory name')
+    sys.exit(1)
+
+
+# dotfiles_path = directory_name.resolve()
 dots_all = dotfiles_path.rglob('*')
 dots_list = [x for x in dots_all]
 dots_files = [x for x in dots_list if x.is_file()]
@@ -45,6 +55,13 @@ def check_dir(thedir):
 	    thedir.mkdir(parents=True, exist_ok=True)
 
 
+def check_exist(usrdir):
+	# if usrdir.exists():
+	if usrdir.is_dir():
+	    return True    
+	else:
+	    return False
+
 def rename_old(thefile):
 	fullname = thefile
 	fname = thefile.stem
@@ -55,6 +72,11 @@ def rename_old(thefile):
 	fullname.rename(path_old)
 
 	
+if check_exist(dotfiles_path):
+	print("Syncing Dotfiles")
+	sync_dotfiles()
+else:
+	print("Invalid Directory")
 # def revert_old():
 
-sync_dotfiles()
+# sync_dotfiles()
