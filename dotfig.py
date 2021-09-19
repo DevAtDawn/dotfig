@@ -71,5 +71,5 @@ def run():
 	else:
 		print("invalid Directory")
 
-run()
+# run()
 
