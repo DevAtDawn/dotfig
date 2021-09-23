@@ -5,17 +5,54 @@ def run():
 
 	from pathlib import Path
 	import sys
+	import subprocess
+
+	home_dir = Path.home()
+	current_dir = Path.cwd()
+	dotfig_config = home_dir / ".config" / "dotfig" / "dotfig.txt"
 
 	try:
 		user_input = sys.argv[1]
 	except:
-		print('Please pass a directory name')
+		print('Please pass a directory name or command')
 		sys.exit(1)
 
-	directory_name = Path(user_input)
-	dotfiles_path = directory_name.resolve()
-	home_dir = Path.home()
-	current_dir = Path.cwd()
+	if user_input == "sync":
+		if dotfig_config.is_file():
+			# directory_name = Path(user_input)
+			dotfiles_path = Path(dotfig_config.read_text())
+			# with open(dotfig_config, 'r') as f:
+				# dotfiles_path = f.read()
+				# dotfiles_path = directory_name.resolve()
+		else:
+			print("error no dotfig config file found, run dotfig command + path first to generate one")
+			sys.exit(1)
+
+	elif user_input == "push":
+		if dotfig_config.is_file():
+			dotfiles_path = dotfig_config.read_text()
+			# cmdout = subprocess.run(['git', 'add', '.', '&&', 'git commit -m \'dotfig update\'', '&&', 'git push'], cwd=dotfiles_path, stdout=subprocess.PIPE).stdout.decode('utf-8')
+			cmdout = subprocess.run(['git', 'add', '.'], cwd=dotfiles_path, stdout=subprocess.PIPE).stdout.decode('utf-8')
+			print(cmdout)
+			cmdout = subprocess.run(['git', 'commit', '-m', '\"dotfig update\"'], cwd=dotfiles_path, stdout=subprocess.PIPE).stdout.decode('utf-8')
+			print(cmdout)
+			cmdout = subprocess.run(['git', 'push'], cwd=dotfiles_path, stdout=subprocess.PIPE).stdout.decode('utf-8')
+			print(cmdout)
+			print("UPLOADED")
+			sys.exit(1)	
+		else:
+			print("error no dotfig config file found, run dotfig command + path first to generate one, then run push to upload to your pre-configured github repo")
+			sys.exit(1)	
+	else:
+		directory_name = Path(user_input)
+		dotfiles_path = directory_name.resolve()
+		if dotfig_config.is_file():
+			dotfig_config.write_text(str(dotfiles_path))
+		else:
+			dotfig_parent = dotfig_config.parent
+			dotfig_parent.mkdir(parents=True, exist_ok=True)
+			dotfig_config.touch()
+			dotfig_config.write_text(str(dotfiles_path))
 
 	def sync_dotfiles():
 		for y in dots_dirs:
