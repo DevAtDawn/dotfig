@@ -1,7 +1,7 @@
 from setuptools import setup
 setup(
     name='dotfig',
-    version='0.0.1',
+    version='0.0.2',
     packages=['dotfig'],
     entry_points={
         'console_scripts': [
