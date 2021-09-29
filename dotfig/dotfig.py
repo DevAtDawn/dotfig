@@ -29,7 +29,7 @@ def run():
 			sys.exit(1)
 
 	elif user_input == "push":
-		if dotfig_config.is_file():
+		if dotfig_config.is_file(): #add check if empty here
 			dotfiles_path = dotfig_config.read_text()
 			# cmdout = subprocess.run(['git', 'add', '.', '&&', 'git commit -m \'dotfig update\'', '&&', 'git push'], cwd=dotfiles_path, stdout=subprocess.PIPE).stdout.decode('utf-8')
 			cmdout = subprocess.run(['git', 'add', '.'], cwd=dotfiles_path, stdout=subprocess.PIPE).stdout.decode('utf-8')
