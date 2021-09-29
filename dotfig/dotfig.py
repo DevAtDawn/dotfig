@@ -47,6 +47,7 @@ def run():
 			
 	elif user_input == "help":
 		print(commands)
+		sys.exit(1)
 		
 	else:
 		directory_name = Path(user_input)
