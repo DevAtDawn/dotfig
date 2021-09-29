@@ -10,6 +10,7 @@ def run():
 	home_dir = Path.home()
 	current_dir = Path.cwd()
 	dotfig_config = home_dir / ".config" / "dotfig" / "dotfig.txt"
+	commands = ['sync', 'push', 'help']
 
 	try:
 		user_input = sys.argv[1]
@@ -42,7 +43,11 @@ def run():
 			sys.exit(1)	
 		else:
 			print("error no dotfig config file found, run dotfig command + path first to generate one, then run push to upload to your pre-configured github repo")
-			sys.exit(1)	
+			sys.exit(1)
+			
+	elif user_input == "help":
+		print(commands)
+		
 	else:
 		directory_name = Path(user_input)
 		dotfiles_path = directory_name.resolve()
